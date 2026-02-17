@@ -65,7 +65,10 @@ exports.ox_target:addGlobalVehicle({
         icon = 'fas fa-closed-captioning',
         label = 'Remove Plate',
         bones = { 'boot' },
-        items = { 'screwdriver' },
+
+        -- Commented out the screwdriver portion as it seems I may have left it out because I had used it in my old server. kekw
+        -- items = { 'screwdriver' },
+
         canInteract = function(entity)
             local hasPlate = lib.callback.await('brazzers-fakeplates:server:checkPlateStatus', false, qbx.getVehiclePlate(entity))
             return hasPlate

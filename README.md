@@ -44,6 +44,5 @@ This gets the fake plate from the original plate. Input the original plate numbe
 ## Dependencies
 1. ox_target
 2. oxmysql
-3. qbx_vehiclekeys
-4. qbx_core
-5. ox_inventory
+3. qbx_core
+4. ox_inventory

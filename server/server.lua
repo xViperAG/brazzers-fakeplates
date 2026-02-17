@@ -2,6 +2,8 @@ local BDs = lib.require('modules.server')
 
 -- Functions
 
+-- Functions
+
 local function GeneratePlate()
     local plate = lib.string.random('1AA111AA')
     local result = MySQL.scalar.await('SELECT plate FROM player_vehicles WHERE plate = ?', {plate})
@@ -50,9 +52,14 @@ RegisterNetEvent('brazzers-fakeplates:server:usePlate', function(vehNetID, vehPl
     if not vehNetID or not vehPlate or not newPlate then return end
     local vehicle = NetworkGetEntityFromNetworkId(vehNetID)
 
-    if isFakePlateOnVehicle(vehPlate) then return exports.qbx_core:Notify(src, 'This vehicle already has another plate over this plate', 'error') end
+    if isFakePlateOnVehicle(vehPlate) then
+        return BDs.Notify(src, 'Contains Fake Plate', 'This vehicle already has another plate over this plate', 'error', 7500, 'fas fa-address-card')
+    end
+
     if not isVehicleOwned(vehPlate) then
-        if not hasKeys then return exports.qbx_core:Notify(src, 'You don\'t have keys..', 'error') end
+        if not hasKeys then
+            return BDs.Notify(src, 'Missing Keys', 'You do not have keys to this vehicle!', 'error', 7500, 'fas fa-key')
+        end
 
         SetVehicleNumberPlateText(vehicle, newPlate)
         BDs.GiveKeys(src, newPlate)
@@ -77,7 +84,9 @@ RegisterNetEvent('brazzers-fakeplates:server:removePlate', function(vehNetID, ve
     if not vehNetID or not vehPlate then return end
     local vehicle = NetworkGetEntityFromNetworkId(vehNetID)
 
-    if not isFakePlateOnVehicle(vehPlate) then return exports.qbx_core:Notify(src, locale('does_not_have_fakeplate'), 'error') end
+    if not isFakePlateOnVehicle(vehPlate) then
+        return BDs.Notify(src, 'No Fake Plate', 'This vehicle does not contain any extra plate on it', 'error', 7500, 'fas fa-address-card')
+    end
 
     local originalPlate = getPlateFromFakePlate(vehPlate)
     if not originalPlate then return end

@@ -10,4 +10,20 @@ function BDc.HasKeys(plate)
     end
 end
 
+function BDc.Notify(title, description, type, length, icon)
+    local notifType = type
+
+    if type == 'primary' then
+        notifType = 'info'
+    end
+
+    return lib.notify({
+        title = title,
+        description = description,
+        icon = icon,
+        type = notifType,
+        duration = length
+    })
+end
+
 return BDc
